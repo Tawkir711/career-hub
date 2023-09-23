@@ -1,8 +1,11 @@
 import React from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
-import { MdLocationOn } from "react-icons/md";
 import { AiOutlineDollar } from "react-icons/ai";
 import { BiBriefcase } from "react-icons/bi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { saveJobApplication } from '../../utility/localstorage';
+
 
 
 const JobDetails = () => {
@@ -11,6 +14,13 @@ const JobDetails = () => {
   const idInt = parseInt(id);
   const job = jobs.find(job => job.id === idInt)
   console.log(job);
+
+
+  const handleApplyJob = () => {
+    saveJobApplication(id);
+    toast('You have applied successfully');
+}
+
   return (
     <div>
       <div className="grid gap-4 md:grid-cols-4 my-5">
@@ -57,8 +67,8 @@ const JobDetails = () => {
               (Per Month)
             </h2>
           </div>
-          <div className='flex'>
-            <BiBriefcase className='mt-1 mr-2 text-xl'></BiBriefcase>
+          <div className="flex">
+            <BiBriefcase className="mt-1 mr-2 text-xl"></BiBriefcase>
             <h2>
               <span className="text-xl font-normal">Job Title :</span> Product
               Designer
@@ -82,9 +92,10 @@ const JobDetails = () => {
             </h2>
           </div>
 
-          <button className="btn btn-grad w-full">Apply Now</button>
+          <button onClick={handleApplyJob} className="btn btn-grad w-full">Apply Now</button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
